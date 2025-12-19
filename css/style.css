@@ -8,12 +8,12 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #0a0a0a;
+  background-color: #1a1a1a;
 }
 
 body {
   font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #0a0a0a;
+  background-color: #1a1a1a;
   color: #ffffff;
   line-height: 1.6;
   overflow-x: hidden;
@@ -26,9 +26,11 @@ body {
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: 20px 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
-  transition: background 0.3s ease;
+  --nav-pad-y: 56px;
+  padding: var(--nav-pad-y) 0;
+  --nav-bg-alpha: 0;
+  background: rgba(10, 10, 10, var(--nav-bg-alpha));
+  transition: none;
 }
 
 .navbar.scrolled {
@@ -38,10 +40,13 @@ body {
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  --nav-pad-x: 72px;
+  padding: 0 var(--nav-pad-x);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  transition: none;
 }
 
 .nav-logo {
@@ -50,10 +55,13 @@ body {
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .logo-img {
-  height: 32px;
+  height: 24px;
   width: auto;
   user-select: none;
   -webkit-user-select: none;
@@ -65,6 +73,14 @@ body {
   list-style: none;
   gap: 40px;
   align-items: center;
+}
+
+.nav-left {
+  margin-right: auto;
+}
+
+.nav-right {
+  margin-left: auto;
 }
 
 .nav-link {
@@ -107,7 +123,15 @@ body {
 }
 
 @media (max-width: 768px) {
-  .nav-menu {
+  .nav-logo {
+    position: static;
+    transform: none;
+    margin-right: auto;
+  }
+
+  .nav-left,
+  .nav-right {
+    margin: 0;
     position: fixed;
     top: 0;
     right: -100%;
@@ -120,15 +144,37 @@ body {
     padding: 96px 24px 24px;
     gap: 20px;
     transition: right 0.3s ease;
+    z-index: 100;
   }
 
-  .nav-menu.active {
+  .nav-right {
+    top: auto;
+    bottom: 0;
+    height: auto;
+    padding: 24px 24px 48px 24px;
+    background: transparent;
+  }
+
+  .nav-left.active,
+  .nav-right.active {
     right: 0;
   }
 
   .nav-toggle {
     display: flex;
     z-index: 101;
+    position: fixed;
+    top: calc(var(--nav-pad-y, 56px) + 4px);
+    right: var(--nav-pad-x, 72px);
+  }
+
+  .nav-toggle.animating {
+    transition: top 0.3s ease, right 0.3s ease;
+  }
+
+  .nav-toggle.active {
+    top: 22px;
+    right: 24px;
   }
 
   .nav-toggle.active span:nth-child(1) {
@@ -148,25 +194,28 @@ body {
   position: relative;
   height: 500vh;
   width: 100%;
+  padding: 20px;
 }
 
 .hero-sticky {
   position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
+  top: 20px;
+  height: calc(100vh - 40px);
+  width: 100%;
   overflow: hidden;
+  border-radius: 32px;
 }
 
 .video-container {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   background: #0a0a0a;
   transition: opacity 0.3s ease;
+  border-radius: 32px;
 }
 
 .video-container.hidden {
@@ -205,61 +254,46 @@ body {
   z-index: -1;
 }
 
-.hero-content {
+.hero-text-flow {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: 100%;
   z-index: 2;
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 15%,
+    black 85%,
+    transparent 100%
+  );
 }
 
-.hero-text-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 40px;
-  text-align: center;
+.hero-text-flow::-webkit-scrollbar {
+  display: none;
 }
 
 .hero-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  height: calc(100vh - 40px);
   padding: 0 40px;
-  opacity: 0;
-  visibility: visible;
-  transition: none;
-  will-change: opacity, transform;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
-}
-
-.hero-text.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.hero-text.fade-out {
-  opacity: 0;
-  transform: translate(-50%, -60%);
-}
-
-.hero-text.fade-in {
-  opacity: 0;
-  transform: translate(-50%, -40%);
+  text-align: center;
 }
 
 .hero-quote {
@@ -277,7 +311,7 @@ body {
 }
 
 .scroll-indicator {
-  position: fixed;
+  position: absolute;
   left: 40px;
   top: 50%;
   transform: translateY(-50%);
@@ -288,6 +322,12 @@ body {
   z-index: 3;
   opacity: 1;
   transition: opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .scroll-indicator {
+    left: 32px;
+  }
 }
 
 .scroll-dots {
@@ -353,9 +393,10 @@ body {
 .app-section {
   position: relative;
   z-index: 10;
-  background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+  background: linear-gradient(180deg, #1a1a1a 0%, #111111 100%);
   padding: 120px 0;
-  margin-top: 0;
+  margin-top: -20px;
+  padding-top: 140px;
 }
 
 .container {
@@ -373,10 +414,7 @@ body {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 30px;
-  background: linear-gradient(135deg, #ffffff 0%, #ff8c5a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .section-subtitle {
@@ -555,7 +593,6 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Download Section */
 .download-section {
   padding: 140px 0;
   background: radial-gradient(
@@ -717,22 +754,19 @@ body {
   animation: fadeInUp 1s ease-out;
 }
 
-/* Hide scroll indicator when past hero section */
 .scroll-indicator.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* Hero section visibility */
 .hero-content.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
-/* Mobile scroll indicator */
 @media (max-width: 768px) {
   .scroll-indicator {
-    left: 20px;
+    left: 32px;
     gap: 8px;
   }
 

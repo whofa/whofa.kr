@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Frame-based video playback
   const canvas = document.getElementById("hero-canvas");
   const ctx = canvas.getContext("2d");
   const frameCount = 180;
@@ -10,14 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const frames = [];
   let framesLoaded = 0;
 
-  // Preload all frames
   for (let i = 1; i <= frameCount; i++) {
     const img = new Image();
     img.src = `assets/frames/frame_${String(i).padStart(3, "0")}.webp`;
     img.onload = () => {
       framesLoaded++;
       if (framesLoaded === 1) {
-        // Set canvas size based on first frame
         canvas.width = img.width;
         canvas.height = img.height;
         drawFrame(0);
@@ -47,12 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroSection = document.querySelector(".hero-section");
   const heroTexts = document.querySelectorAll(".hero-text");
   const dots = document.querySelectorAll(".dot");
-  const heroContent = document.querySelector(".hero-content");
   const scrollIndicator = document.querySelector(".scroll-indicator");
+  const heroTextFlow = document.querySelector(".hero-text-flow");
 
   const totalSlides = heroTexts.length;
   const clamp01 = (value) => Math.min(Math.max(value, 0), 1);
-  const smoothstep01 = (t) => t * t * (3 - 2 * t);
 
   function updateHeroByScroll() {
     const heroHeight = heroSection.offsetHeight;
@@ -61,62 +57,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const scrollTop = window.scrollY;
     const progress = clamp01(scrollTop / scrollableHeight);
 
-    const segments = Math.max(totalSlides, 1);
-    const scaled = progress * segments;
-    const index = Math.min(Math.floor(scaled), totalSlides - 1);
-    const tRaw = scaled - index;
-    const t = clamp01(tRaw);
-    const fadeWindow = 0.6;
-    const tWindowed = clamp01((t - (1 - fadeWindow) / 2) / fadeWindow);
-    const ease = smoothstep01(tWindowed);
-
-    heroTexts.forEach((text) => {
-      text.style.opacity = "0";
-      text.style.visibility = "hidden";
-      text.style.zIndex = "10";
-      text.style.transform = "translate3d(-50%, -50%, 0)";
-    });
-
-    const current = heroTexts[index];
-    const next = heroTexts[Math.min(index + 1, totalSlides - 1)];
-
-    const currentOpacity = index === totalSlides - 1 ? 1 : 1 - ease;
-    const nextOpacity = index === totalSlides - 1 ? 0 : ease;
-
-    const travel = 120;
-    // 마지막 슬라이드에서는 transform 적용하지 않음
-    const currentOffset = index === totalSlides - 1 ? 0 : -ease * travel;
-    const nextOffset = (1 - ease) * travel;
-
-    current.style.opacity = String(currentOpacity);
-    current.style.visibility = currentOpacity > 0.02 ? "visible" : "hidden";
-    current.style.zIndex = "12";
-    current.style.transform = `translate3d(-50%, calc(-50% + ${currentOffset.toFixed(
-      1
-    )}px), 0)`;
-
-    if (next !== current) {
-      next.style.opacity = String(nextOpacity);
-      next.style.visibility = nextOpacity > 0.02 ? "visible" : "hidden";
-      next.style.zIndex = "11";
-      next.style.transform = `translate3d(-50%, calc(-50% + ${nextOffset.toFixed(
-        1
-      )}px), 0)`;
-    }
+    const textFlowScrollHeight =
+      heroTextFlow.scrollHeight - heroTextFlow.clientHeight;
+    heroTextFlow.scrollTop = progress * textFlowScrollHeight;
 
     const activeDot = Math.min(
       Math.round(progress * (totalSlides - 1)),
       totalSlides - 1
     );
     dots.forEach((dot, i) => dot.classList.toggle("active", i === activeDot));
-
-    if (window.scrollY >= heroHeight - window.innerHeight) {
-      heroContent.classList.add("hidden");
-      scrollIndicator.classList.add("hidden");
-    } else {
-      heroContent.classList.remove("hidden");
-      scrollIndicator.classList.remove("hidden");
-    }
   }
 
   let ticking = false;
@@ -156,20 +105,57 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const videoContainer = document.querySelector(".video-container");
+  const heroSticky = document.querySelector(".hero-sticky");
+
+  const navbar = document.querySelector(".navbar");
+  const navContainer = document.querySelector(".nav-container");
+  const appSection = document.querySelector(".app-section");
 
   function updateVideoByScroll() {
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
+    const viewportHeight = window.innerHeight;
 
     videoContainer.classList.remove("hidden");
     videoContainer.style.transform = "translateY(0px)";
 
     const opacity = 1 - (scrollY / Math.max(heroHeight, 1)) * 0.5;
     videoContainer.style.opacity = String(Math.max(opacity, 0));
+
+    if (appSection) {
+      const navbarHeight = navbar?.offsetHeight ?? 0;
+      const appTop = appSection.getBoundingClientRect().top;
+
+      const denom = Math.max(viewportHeight - navbarHeight, 1);
+      const progress = clamp01((viewportHeight - appTop) / denom);
+      const eased = progress;
+
+      if (heroSticky) {
+        const scale = 1 - eased * 0.25;
+        heroSticky.style.transform = `scale(${scale})`;
+        heroSticky.style.transformOrigin = "center bottom";
+      }
+
+      if (navbar) {
+        const padYExpanded = 56;
+        const padYOriginal = 18;
+        const padY = padYExpanded - (padYExpanded - padYOriginal) * eased;
+        navbar.style.setProperty("--nav-pad-y", `${padY.toFixed(2)}px`);
+
+        const bgAlphaMax = 0.75;
+        const bgAlpha = bgAlphaMax * eased;
+        navbar.style.setProperty("--nav-bg-alpha", `${bgAlpha.toFixed(3)}`);
+      }
+
+      if (navContainer) {
+        const padXExpanded = 72;
+        const padXOriginal = 24;
+        const padX = padXExpanded - (padXExpanded - padXOriginal) * eased;
+        navContainer.style.setProperty("--nav-pad-x", `${padX.toFixed(2)}px`);
+      }
+    }
   }
 
-  const navbar = document.querySelector(".navbar");
-  const appSection = document.querySelector(".app-section");
   let lastScrolled = false;
 
   function updateNavbarByScroll() {
@@ -188,17 +174,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.querySelector(".nav-menu");
+  const navMenus = document.querySelectorAll(".nav-menu");
 
   navToggle.addEventListener("click", () => {
+    navToggle.classList.add("animating");
     navToggle.classList.toggle("active");
-    navMenu.classList.toggle("active");
+    navMenus.forEach((menu) => menu.classList.toggle("active"));
+  });
+
+  navToggle.addEventListener("transitionend", () => {
+    navToggle.classList.remove("animating");
   });
 
   document.querySelectorAll(".nav-link").forEach((link) => {
     link.addEventListener("click", () => {
-      navToggle.classList.remove("active");
-      navMenu.classList.remove("active");
+      navMenus.forEach((menu) => menu.classList.remove("active"));
+      setTimeout(() => {
+        navToggle.classList.remove("active");
+      }, 300);
     });
   });
 
