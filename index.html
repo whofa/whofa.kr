@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WHOFA - 음악을 발견하는 새로운 방식</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">
+          <img
+            src="assets/logo.svg"
+            alt="WHOFA"
+            class="logo-img"
+            draggable="false"
+          />
+        </a>
+        <ul class="nav-menu">
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#faqs" class="nav-link">FAQs</a></li>
+          <li><a href="#download" class="nav-link nav-cta">앱 다운로드</a></li>
+        </ul>
+        <div class="nav-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero-section">
+      <div class="hero-sticky">
+        <div class="video-container">
+          <video autoplay muted loop playsinline id="hero-video">
+            <source src="assets/hero-video.mp4" type="video/mp4" />
+          </video>
+          <div class="video-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-text-container">
+            <div class="hero-text active" data-index="0">
+              <p class="hero-quote">
+                "글로벌 시장에서 한 해에<br /><span class="highlight"
+                  >10회도 스트리밍되어지지 않고</span
+                ><br />사라지는 음악은 <span class="highlight">1억 곡</span>"
+              </p>
+            </div>
+            <div class="hero-text" data-index="1">
+              <p class="hero-quote">
+                "뮤지션에게 진정으로<br />필요한 서비스는<br /><span
+                  class="highlight"
+                  >무엇일까?</span
+                >"
+              </p>
+            </div>
+            <div class="hero-text" data-index="2">
+              <p class="hero-quote">
+                "바로<br /><span class="highlight">내 음악을 위한</span
+                ><br />플랫폼"
+              </p>
+            </div>
+            <div class="hero-text" data-index="3">
+              <p class="hero-quote">
+                "새로운 방식으로<br />음악을 연결하고 실험하는<br /><span
+                  class="highlight"
+                  >크리에이티브 랩</span
+                >"
+              </p>
+            </div>
+          </div>
+
+          <div class="scroll-indicator">
+            <div class="scroll-dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-section" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">음악을 발견하는 새로운 방식.</h1>
+          <p class="section-subtitle">
+            우리는 블라인드 숏 뮤직 기능을 통해 리스너가 오직 사운드에만
+            집중하여<br />
+            음악이 가진 힘과 매력을 경험할 수 있도록 합니다.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M9 9C9 7.89543 9.89543 7 11 7H13C14.1046 7 15 7.89543 15 9C15 10.1046 14.1046 11 13 11H11"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle cx="12" cy="15" r="1" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h2 class="feature-title">● 블라인드 숏뮤직 플레이</h2>
+            <ul class="feature-list">
+              <li>
+                정보의 선입견이 없는 <strong>"진짜 음악"</strong>을 발견할 수
+                있어요.
+              </li>
+              <li>
+                짧지만 강렬한 하이라이트를 들려주는 숏뮤직으로 음악이 가진 힘을
+                느껴보세요.
+              </li>
+              <li>
+                댓글 달기와 이모지 응원하기로 블라인드 된 정보를 볼 수 있어요.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <circle
+                cx="12"
+                cy="10"
+                r="3"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M6 21V19C6 16.7909 7.79086 15 10 15H14C16.2091 15 18 16.7909 18 19V21"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h2 class="feature-title">● 음원 중심의 뮤지션 프로필</h2>
+            <ul class="feature-list">
+              <li>
+                내 음원의 하이라이트 미리듣기 기능을 시작으로 싱글, 앨범, 참여곡
+                등 다양한 음악 작업물을 카테고리별로 쉽게 정리할 수 있어요.
+              </li>
+              <li>
+                레이아웃을 커스터마이즈하여 명함 대신 팬들에게 공유해보세요!
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L2 7L12 12L22 7L12 2Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2 17L12 22L22 17"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2 12L12 17L22 12"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h2 class="feature-title">● AI를 이용한 음원 업로드</h2>
+            <ul class="feature-list">
+              <li>내 음원의 가사를 AI로 쉽게 입력하면 홍보 준비 완료!</li>
+              <li>
+                언제 어디서든 음악 파일만 있다면 간단하게 업로드할 수 있어요.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h2 class="feature-title">● 음악이 주는 선물, 포인트</h2>
+            <ul class="feature-list">
+              <li>
+                아티스트의 음악을 듣기만 해도 빠른 포인트 적립이 가능해요!
+              </li>
+              <li>
+                적립한 포인트는 내가 좋아하는 디지털 상품권으로 교환 후
+                사용해요.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="9"
+                cy="7"
+                r="4"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="M23 21V19C23 17.1362 21.7252 15.5701 20 15.126"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M16 3.12602C17.7252 3.57006 19 5.13623 19 7C19 8.86377 17.7252 10.4299 16 10.874"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <div class="feature-content">
+            <h2 class="feature-title">● 커뮤니티</h2>
+            <ul class="feature-list">
+              <li>
+                내가 만든 음원이나 내가 좋아하는 음악을 소개하고 자랑 할 수 있는
+                커뮤니티를 소개해요.
+              </li>
+              <li>
+                아티스트와 아티스트가, 아티스트와 리스너가 서로 이미지, 동영상,
+                음원으로 음악에 대해 자유롭게 이야기 할 수 있어요!
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faqs">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">자주 묻는 질문</h1>
+          <p class="section-subtitle">WHOFA에 대해 궁금한 점을 확인해보세요.</p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>WHOFA는 어떤 서비스인가요?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                WHOFA는 블라인드 숏 뮤직 기능을 통해 리스너가 선입견 없이 음악
+                자체에 집중할 수 있도록 돕는 새로운 음악 플랫폼입니다.
+                뮤지션에게는 자신의 음악을 효과적으로 홍보하고 팬들과 소통할 수
+                있는 공간을 제공합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>앱은 무료인가요?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                네, WHOFA 앱은 무료로 다운로드하여 사용할 수 있습니다. 일부
+                프리미엄 기능은 추후 유료로 제공될 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>어떻게 음악을 업로드하나요?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                앱에서 뮤지션 프로필을 생성한 후, AI 기반 업로드 기능을 통해
+                음악 파일과 가사를 쉽게 등록할 수 있습니다. 언제 어디서든
+                간편하게 업로드가 가능합니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>포인트는 어떻게 적립하나요?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                WHOFA에서 음악을 감상하면 자동으로 포인트가 적립됩니다. 적립된
+                포인트는 다양한 디지털 상품권으로 교환하여 사용할 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>iOS와 Android 모두 지원하나요?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              <p>
+                네, WHOFA는 iOS와 Android 모두 지원합니다. App Store와 Google
+                Play에서 다운로드할 수 있습니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="download-section" id="download">
+      <div class="container">
+        <div class="section-header">
+          <h1 class="section-title">지금 바로 시작하세요.</h1>
+          <p class="section-subtitle">
+            WHOFA 앱을 다운로드하고 새로운 음악 경험을 만나보세요.
+          </p>
+        </div>
+        <div class="download-buttons">
+          <a
+            href="https://apps.apple.com/kr/app/whofa/id6745767412"
+            class="download-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="assets/download_appstore.svg"
+              alt="App Store에서 다운로드"
+              draggable="false"
+            />
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=shop.whofa"
+            class="download-btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="assets/download_googleplay.svg"
+              alt="Google Play에서 다운로드"
+              draggable="false"
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-logo">
+          <img
+            src="assets/logo.svg"
+            alt="WHOFA"
+            class="footer-logo-img"
+            draggable="false"
+          />
+        </div>
+        <p class="footer-text">© 2025 WHOFA. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
