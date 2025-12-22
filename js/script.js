@@ -76,33 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
       updateHeroByScroll();
       updateVideoByScroll();
       updateNavbarByScroll();
+      updateFeatureByScroll();
       ticking = false;
     });
   };
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
-
-  const featureCards = document.querySelectorAll(".feature-card");
-
-  const observerOptions = {
-    threshold: 0.2,
-    rootMargin: "0px 0px -50px 0px",
-  };
-
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add("visible");
-        }, index * 100);
-      }
-    });
-  }, observerOptions);
-
-  featureCards.forEach((card) => {
-    cardObserver.observe(card);
-  });
 
   const videoContainer = document.querySelector(".video-container");
   const heroSticky = document.querySelector(".hero-sticky");
@@ -154,6 +134,29 @@ document.addEventListener("DOMContentLoaded", () => {
         navContainer.style.setProperty("--nav-pad-x", `${padX.toFixed(2)}px`);
       }
     }
+  }
+
+  const featureScrollContainers = document.querySelectorAll(
+    ".feature-scroll-container"
+  );
+
+  function updateFeatureByScroll() {
+    const viewportHeight = window.innerHeight;
+
+    featureScrollContainers.forEach((container) => {
+      const textContent = container.querySelector(".feature-text-content");
+      if (!textContent) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const containerTop = containerRect.top;
+
+      const scrollProgress = clamp01(-containerTop / (viewportHeight * 0.5));
+
+      const textScale = 1 - scrollProgress * 0.2;
+      const textOpacity = 1 - scrollProgress;
+      textContent.style.transform = `translate(-50%, -50%) scale(${textScale})`;
+      textContent.style.opacity = textOpacity;
+    });
   }
 
   let lastScrolled = false;
@@ -215,6 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateHeroByScroll();
   updateVideoByScroll();
   updateNavbarByScroll();
+  updateFeatureByScroll();
 });
 
 document.body.classList.add("loading");
