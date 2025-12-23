@@ -8,6 +8,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalSlides = heroTexts.length;
   const clamp01 = (value) => Math.min(Math.max(value, 0), 1);
 
+  let isLowPowerMode = false;
+  let frameSkipCounter = 0;
+  const FRAME_SKIP_THRESHOLD = 2;
+
+  if ("getBattery" in navigator) {
+    navigator.getBattery().then((battery) => {
+      const checkLowPower = () => {
+        isLowPowerMode = battery.level <= 0.2 && !battery.charging;
+      };
+      checkLowPower();
+      battery.addEventListener("levelchange", checkLowPower);
+      battery.addEventListener("chargingchange", checkLowPower);
+    });
+  }
+
+  const detectReducedMotion = () => {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  };
+
+  const pendingStyles = new Map();
+  let styleFlushScheduled = false;
+
+  const setOptimizedStyle = (element, property, value) => {
+    if (!pendingStyles.has(element)) {
+      pendingStyles.set(element, {});
+    }
+    pendingStyles.get(element)[property] = value;
+
+    if (!styleFlushScheduled) {
+      styleFlushScheduled = true;
+      requestAnimationFrame(flushStyles);
+    }
+  };
+
+  const flushStyles = () => {
+    pendingStyles.forEach((styles, element) => {
+      Object.assign(element.style, styles);
+    });
+    pendingStyles.clear();
+    styleFlushScheduled = false;
+  };
+
   function updateHeroByScroll() {
     const heroHeight = heroSection.offsetHeight;
     const viewportHeight = window.innerHeight;
@@ -27,8 +69,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let ticking = false;
+  let lastScrollY = -1;
+
   const onScroll = () => {
     if (ticking) return;
+
+    if (isLowPowerMode) {
+      frameSkipCounter++;
+      if (frameSkipCounter < FRAME_SKIP_THRESHOLD) return;
+      frameSkipCounter = 0;
+    }
+
+    const currentScrollY = window.scrollY;
+    if (Math.abs(currentScrollY - lastScrollY) < 1) return;
+    lastScrollY = currentScrollY;
+
     ticking = true;
     window.requestAnimationFrame(() => {
       updateHeroByScroll();
@@ -40,7 +95,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
+  window.addEventListener(
+    "resize",
+    () => {
+      lastScrollY = -1;
+      onScroll();
+    },
+    { passive: true }
+  );
 
   const videoContainer = document.querySelector(".video-container");
   const heroSticky = document.querySelector(".hero-sticky");
@@ -67,28 +129,56 @@ document.addEventListener("DOMContentLoaded", () => {
         lastProgress = -1;
         lastScale = -1;
         heroTextFlow.style.transform = "";
+        heroTextFlow.style.webkitTransform = "";
         heroSticky.style.transform = "";
+        heroSticky.style.webkitTransform = "";
       }
+    },
+    { passive: true }
+  );
+
+  let cachedHeroHeight = 0;
+  let cachedViewportHeight = 0;
+  let cachedNavbarHeight = 0;
+  let layoutCacheValid = false;
+
+  const updateLayoutCache = () => {
+    cachedHeroHeight = heroSection.offsetHeight;
+    cachedViewportHeight = window.innerHeight;
+    cachedNavbarHeight = navbar?.offsetHeight ?? 0;
+    layoutCacheValid = true;
+  };
+
+  window.addEventListener(
+    "resize",
+    () => {
+      layoutCacheValid = false;
     },
     { passive: true }
   );
 
   function updateVideoByScroll() {
     const scrollY = window.scrollY;
-    const heroHeight = heroSection.offsetHeight;
-    const viewportHeight = window.innerHeight;
+
+    if (!layoutCacheValid) updateLayoutCache();
+    const heroHeight = cachedHeroHeight;
+    const viewportHeight = cachedViewportHeight;
 
     const opacity = 1 - (scrollY / Math.max(heroHeight, 1)) * 0.5;
-    videoContainer.style.opacity = String(Math.max(opacity, 0));
+    const clampedOpacity = Math.max(opacity, 0);
+
+    const currentOpacity = parseFloat(videoContainer.style.opacity) || 1;
+    if (Math.abs(clampedOpacity - currentOpacity) > 0.01) {
+      videoContainer.style.opacity = clampedOpacity.toFixed(2);
+    }
 
     if (appSection) {
-      const navbarHeight = navbar?.offsetHeight ?? 0;
       const appTop = appSection.getBoundingClientRect().top;
 
-      const denom = Math.max(viewportHeight - navbarHeight, 1);
+      const denom = Math.max(viewportHeight - cachedNavbarHeight, 1);
       const progress = clamp01((viewportHeight - appTop) / denom);
 
-      const progressChanged = Math.abs(progress - lastProgress) > 0.001;
+      const progressChanged = Math.abs(progress - lastProgress) > 0.005;
       if (!progressChanged) return;
       lastProgress = progress;
 
@@ -97,30 +187,30 @@ document.addEventListener("DOMContentLoaded", () => {
       if (heroSticky) {
         const scale = 1 - eased * 0.25;
 
-        heroSticky.style.transform = `scale(${scale}) translateZ(0)`;
-        heroSticky.style.transformOrigin = "center bottom";
-        heroTextFlow.style.transform = `scale(${scale}) translateZ(0)`;
-        heroTextFlow.style.transformOrigin = "center center";
-        lastScale = scale;
+        if (Math.abs(scale - lastScale) > 0.002) {
+          const scaleStr = scale.toFixed(4);
+          const stickyTransform = `scale(${scaleStr}) translateZ(0)`;
+          heroSticky.style.transform = stickyTransform;
+          heroSticky.style.webkitTransform = stickyTransform;
+
+          const flowTransform = `scale(${scaleStr}) translateZ(0)`;
+          heroTextFlow.style.transform = flowTransform;
+          heroTextFlow.style.webkitTransform = flowTransform;
+          lastScale = scale;
+        }
 
         if (isMobile()) {
           const easedRadius = easeOutQuad(eased);
           const maxRadius = 32;
-          const radius = easedRadius * maxRadius;
+          const radius = Math.round(easedRadius * maxRadius);
           const maxPadding = 20;
-          const padding = easedRadius * maxPadding;
+          const padding = Math.round(easedRadius * maxPadding);
 
           heroSection.style.padding = `${padding}px`;
           heroSticky.style.top = `${padding}px`;
           heroSticky.style.height = `calc(100vh - ${padding * 2}px)`;
           heroSticky.style.borderRadius = `${radius}px`;
           videoContainer.style.borderRadius = `${radius}px`;
-        } else {
-          heroSection.style.padding = "20px";
-          heroSticky.style.top = "20px";
-          heroSticky.style.height = "calc(100vh - 40px)";
-          heroSticky.style.borderRadius = "32px";
-          videoContainer.style.borderRadius = "32px";
         }
       }
 
@@ -156,8 +246,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ".feature-scroll-container"
   );
 
+  const featureStateCache = new WeakMap();
+
   function updateFeatureByScroll() {
-    const viewportHeight = window.innerHeight;
+    if (!layoutCacheValid) updateLayoutCache();
+    const viewportHeight = cachedViewportHeight;
 
     featureScrollContainers.forEach((container) => {
       const textContent = container.querySelector(".feature-text-content");
@@ -168,10 +261,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const scrollProgress = clamp01(-containerTop / (viewportHeight * 0.5));
 
+      const lastState = featureStateCache.get(textContent) || { progress: -1 };
+      if (Math.abs(scrollProgress - lastState.progress) < 0.01) return;
+
+      featureStateCache.set(textContent, { progress: scrollProgress });
+
       const textScale = 1 - scrollProgress * 0.2;
       const textOpacity = 1 - scrollProgress;
-      textContent.style.transform = `translate(-50%, -50%) scale(${textScale})`;
-      textContent.style.opacity = textOpacity;
+      const featureTransform = `translate(-50%, -50%) scale(${textScale.toFixed(
+        4
+      )}) translateZ(0)`;
+      textContent.style.transform = featureTransform;
+      textContent.style.webkitTransform = featureTransform;
+      textContent.style.opacity = textOpacity.toFixed(2);
     });
   }
 
@@ -239,7 +341,6 @@ document.addEventListener("DOMContentLoaded", () => {
           entry.target.classList.add("animate");
         } else {
           entry.target.classList.remove("animate");
-          void entry.target.offsetWidth;
         }
       });
     },
@@ -248,6 +349,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   underlineElements.forEach((el) => underlineObserver.observe(el));
 
+  if (heroSticky) {
+    heroSticky.style.transformOrigin = "center bottom";
+    heroSticky.style.webkitTransformOrigin = "center bottom";
+  }
+  if (heroTextFlow) {
+    heroTextFlow.style.transformOrigin = "center center";
+    heroTextFlow.style.webkitTransformOrigin = "center center";
+  }
+
+  updateLayoutCache();
   updateHeroByScroll();
   updateVideoByScroll();
   updateNavbarByScroll();
