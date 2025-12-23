@@ -110,6 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.querySelector(".navbar");
   const navContainer = document.querySelector(".nav-container");
   const appSection = document.querySelector(".app-section");
+  const featureScrollContainers = document.querySelectorAll(
+    ".feature-scroll-container"
+  );
 
   let cachedIsMobile = window.innerWidth <= 768;
   const isMobile = () => cachedIsMobile;
@@ -132,6 +135,42 @@ document.addEventListener("DOMContentLoaded", () => {
         heroTextFlow.style.webkitTransform = "";
         heroSticky.style.transform = "";
         heroSticky.style.webkitTransform = "";
+
+        if (cachedIsMobile) {
+          heroSection.style.padding = "0";
+          heroSticky.style.top = "0";
+          heroSticky.style.height = "100vh";
+          heroSticky.style.borderRadius = "0";
+          videoContainer.style.borderRadius = "0";
+          navbar.style.setProperty("--nav-pad-y", "18px");
+          navContainer.style.setProperty("--nav-pad-x", "24px");
+        } else {
+          heroSection.style.padding = "20px";
+          heroSticky.style.top = "20px";
+          heroSticky.style.height = "calc(100vh - 40px)";
+          heroSticky.style.borderRadius = "32px";
+          videoContainer.style.borderRadius = "32px";
+          navbar.style.setProperty("--nav-pad-y", "56px");
+          navbar.style.setProperty("--nav-bg-alpha", "0");
+          navContainer.style.setProperty("--nav-pad-x", "72px");
+        }
+
+        featureScrollContainers.forEach((container) => {
+          const textContent = container.querySelector(".feature-text-content");
+          if (textContent) {
+            textContent.style.transform = "";
+            textContent.style.webkitTransform = "";
+            textContent.style.opacity = "";
+          }
+        });
+
+        layoutCacheValid = false;
+        requestAnimationFrame(() => {
+          updateHeroByScroll();
+          updateVideoByScroll();
+          updateNavbarByScroll();
+          updateFeatureByScroll();
+        });
       }
     },
     { passive: true }
@@ -241,10 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }
-
-  const featureScrollContainers = document.querySelectorAll(
-    ".feature-scroll-container"
-  );
 
   const featureStateCache = new WeakMap();
 
