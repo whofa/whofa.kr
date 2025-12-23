@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (wasMobile !== cachedIsMobile) {
         lastProgress = -1;
         lastScale = -1;
+        heroTextFlow.style.transform = "";
+        heroSticky.style.transform = "";
       }
     },
     { passive: true }
@@ -97,6 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         heroSticky.style.transform = `scale(${scale}) translateZ(0)`;
         heroSticky.style.transformOrigin = "center bottom";
+        heroTextFlow.style.transform = `scale(${scale}) translateZ(0)`;
+        heroTextFlow.style.transformOrigin = "center center";
         lastScale = scale;
 
         if (isMobile()) {
