@@ -47,38 +47,42 @@
     <section class="hero-section">
       <div class="hero-sticky">
         <div class="video-container">
-          <canvas id="hero-canvas"></canvas>
+          <img
+            src="assets/videos/hero_video.webp"
+            alt="Hero Video"
+            id="hero-video"
+            draggable="false"
+          />
           <div class="video-overlay"></div>
         </div>
 
         <div class="hero-text-flow">
           <div class="hero-text" data-index="0">
             <p class="hero-quote">
-              "글로벌 시장에서 한 해에<br /><span class="highlight"
-                >10회도 스트리밍되어지지 않고</span
-              ><br />사라지는 음악은 <span class="highlight">1억 곡</span>"
+              글로벌 시장에서 한 해에<br /><span class="highlight"
+                >10회도 스트리밍되지 않고</span
+              ><br />사라지는 음악은 <span class="highlight">1억 곡</span>
             </p>
           </div>
           <div class="hero-text" data-index="1">
             <p class="hero-quote">
-              "뮤지션에게 진정으로<br />필요한 서비스는<br /><span
-                class="highlight"
-                >무엇일까?</span
-              >"
+              뮤지션에게
+              <span class="highlight">진정으로<br />필요한 서비스</span
+              >는<br />무엇일까?
             </p>
           </div>
           <div class="hero-text" data-index="2">
             <p class="hero-quote">
-              "바로<br /><span class="highlight">내 음악을 위한</span
-              ><br />플랫폼"
+              바로<br /><span class="highlight">내 음악을 위한</span
+              ><br />플랫폼
             </p>
           </div>
           <div class="hero-text" data-index="3">
             <p class="hero-quote">
-              "새로운 방식으로<br />음악을 연결하고 실험하는<br /><span
+              새로운 방식으로<br />음악을 연결하고 실험하는<br /><span
                 class="highlight"
                 >크리에이티브 랩</span
-              >"
+              >
             </p>
           </div>
         </div>
@@ -99,8 +103,70 @@
         <div class="feature-sticky-wrapper">
           <div class="feature-text-content">
             <h1 class="section-title">
-              짧지만 강렬한 블라인드 숏뮤직으로<br />
-              당신의 음악이 가진 힘을 보여주세요.
+              짧지만<svg
+                class="inline-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              강렬한<svg
+                class="inline-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg
+              ><br />
+              <span class="underline-animated">블라인드 숏뮤직</span
+              ><svg
+                class="inline-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                <path
+                  d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
+                /></svg
+              >으로<br />
+              당신의 음악<svg
+                class="inline-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" /></svg
+              >이 가진<br />
+              힘을 보여주세요<svg
+                class="inline-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
             </h1>
           </div>
         </div>
@@ -119,7 +185,7 @@
               draggable="false"
             />
             <img
-              src="assets/screenshots/1.webp"
+              src="assets/videos/preplay_video.webp"
               alt="App Screenshot"
               class="phone-screenshot"
               draggable="false"
@@ -131,7 +197,10 @@
       <div class="feature-scroll-container">
         <div class="feature-sticky-wrapper">
           <div class="feature-text-content">
-            <h1 class="section-title">함께 만드는 사운드 커뮤니티.</h1>
+            <h1 class="section-title">
+              함께 만드는
+              <span class="underline-animated">사운드 커뮤니티</span>.
+            </h1>
             <p class="section-subtitle">
               다양한 음악 창작자들이 자신의 작업물을 소개하고,<br />
               더 풍성한 사운드로 발전시키기 위해 협업할 수 있는 커뮤니티예요.
@@ -153,7 +222,7 @@
               draggable="false"
             />
             <img
-              src="assets/screenshots/2.webp"
+              src="assets/videos/community_video.webp"
               alt="App Screenshot"
               class="phone-screenshot"
               draggable="false"
@@ -165,7 +234,10 @@
       <div class="feature-scroll-container">
         <div class="feature-sticky-wrapper">
           <div class="feature-text-content">
-            <h1 class="section-title">프로필 하나로 프로페셔널하게.</h1>
+            <h1 class="section-title">
+              <span class="underline-animated">프로필 하나로</span>
+              프로페셔널하게.
+            </h1>
             <p class="section-subtitle">
               한 번의 링크로 내 모든 음악 활동을 한번에 알릴 수 있어요.
             </p>
@@ -186,7 +258,7 @@
               draggable="false"
             />
             <img
-              src="assets/screenshots/3.webp"
+              src="assets/videos/profile_video.webp"
               alt="App Screenshot"
               class="phone-screenshot"
               draggable="false"

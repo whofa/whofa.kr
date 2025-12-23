@@ -1,46 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("hero-canvas");
-  const ctx = canvas.getContext("2d");
-  const frameCount = 180;
-  const fps = 15;
-  const frameInterval = 1000 / fps;
-  let currentFrame = 0;
-  let lastFrameTime = 0;
-  const frames = [];
-  let framesLoaded = 0;
-
-  for (let i = 1; i <= frameCount; i++) {
-    const img = new Image();
-    img.src = `assets/frames/frame_${String(i).padStart(3, "0")}.webp`;
-    img.onload = () => {
-      framesLoaded++;
-      if (framesLoaded === 1) {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        drawFrame(0);
-      }
-    };
-    frames.push(img);
-  }
-
-  function drawFrame(index) {
-    const img = frames[index];
-    if (img && img.complete) {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    }
-  }
-
-  function animateFrames(timestamp) {
-    if (timestamp - lastFrameTime >= frameInterval) {
-      currentFrame = (currentFrame + 1) % frameCount;
-      drawFrame(currentFrame);
-      lastFrameTime = timestamp;
-    }
-    requestAnimationFrame(animateFrames);
-  }
-
-  requestAnimationFrame(animateFrames);
-
   const heroSection = document.querySelector(".hero-section");
   const heroTexts = document.querySelectorAll(".hero-text");
   const dots = document.querySelectorAll(".dot");
@@ -91,6 +49,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const navContainer = document.querySelector(".nav-container");
   const appSection = document.querySelector(".app-section");
 
+  const isMobile = () => window.innerWidth <= 768;
+
+  const easeOutQuad = (t) => 1 - (1 - t) * (1 - t);
+
   function updateVideoByScroll() {
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
@@ -114,9 +76,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const scale = 1 - eased * 0.25;
         heroSticky.style.transform = `scale(${scale})`;
         heroSticky.style.transformOrigin = "center bottom";
+
+        if (isMobile()) {
+          const easedRadius = easeOutQuad(eased);
+          const maxRadius = 32;
+          const radius = easedRadius * maxRadius;
+          const maxPadding = 20;
+          const padding = easedRadius * maxPadding;
+
+          heroSection.style.padding = `${padding}px`;
+          heroSticky.style.top = `${padding}px`;
+          heroSticky.style.height = `calc(100vh - ${padding * 2}px)`;
+          heroSticky.style.borderRadius = `${radius}px`;
+          videoContainer.style.borderRadius = `${radius}px`;
+        } else {
+          heroSection.style.padding = "20px";
+          heroSticky.style.top = "20px";
+          heroSticky.style.height = "calc(100vh - 40px)";
+          heroSticky.style.borderRadius = "32px";
+          videoContainer.style.borderRadius = "32px";
+        }
       }
 
-      if (navbar) {
+      if (navbar && !isMobile()) {
         const padYExpanded = 56;
         const padYOriginal = 18;
         const padY = padYExpanded - (padYExpanded - padYOriginal) * eased;
@@ -125,13 +107,21 @@ document.addEventListener("DOMContentLoaded", () => {
         const bgAlphaMax = 0.75;
         const bgAlpha = bgAlphaMax * eased;
         navbar.style.setProperty("--nav-bg-alpha", `${bgAlpha.toFixed(3)}`);
+      } else if (navbar && isMobile()) {
+        navbar.style.setProperty("--nav-pad-y", "18px");
+        navbar.style.setProperty(
+          "--nav-bg-alpha",
+          `${(0.75 * eased).toFixed(3)}`
+        );
       }
 
-      if (navContainer) {
+      if (navContainer && !isMobile()) {
         const padXExpanded = 72;
         const padXOriginal = 24;
         const padX = padXExpanded - (padXExpanded - padXOriginal) * eased;
         navContainer.style.setProperty("--nav-pad-x", `${padX.toFixed(2)}px`);
+      } else if (navContainer && isMobile()) {
+        navContainer.style.setProperty("--nav-pad-x", "24px");
       }
     }
   }
@@ -214,6 +204,23 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("load", () => {
     document.body.classList.add("loaded");
   });
+
+  const underlineElements = document.querySelectorAll(".underline-animated");
+  const underlineObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+          void entry.target.offsetWidth;
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  underlineElements.forEach((el) => underlineObserver.observe(el));
 
   updateHeroByScroll();
   updateVideoByScroll();
