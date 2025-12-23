@@ -49,17 +49,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const navContainer = document.querySelector(".nav-container");
   const appSection = document.querySelector(".app-section");
 
-  const isMobile = () => window.innerWidth <= 768;
+  let cachedIsMobile = window.innerWidth <= 768;
+  const isMobile = () => cachedIsMobile;
 
   const easeOutQuad = (t) => 1 - (1 - t) * (1 - t);
+
+  let lastProgress = -1;
+  let lastScale = -1;
+
+  window.addEventListener(
+    "resize",
+    () => {
+      const wasMobile = cachedIsMobile;
+      cachedIsMobile = window.innerWidth <= 768;
+
+      if (wasMobile !== cachedIsMobile) {
+        lastProgress = -1;
+        lastScale = -1;
+      }
+    },
+    { passive: true }
+  );
 
   function updateVideoByScroll() {
     const scrollY = window.scrollY;
     const heroHeight = heroSection.offsetHeight;
     const viewportHeight = window.innerHeight;
-
-    videoContainer.classList.remove("hidden");
-    videoContainer.style.transform = "translateY(0px)";
 
     const opacity = 1 - (scrollY / Math.max(heroHeight, 1)) * 0.5;
     videoContainer.style.opacity = String(Math.max(opacity, 0));
@@ -70,12 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const denom = Math.max(viewportHeight - navbarHeight, 1);
       const progress = clamp01((viewportHeight - appTop) / denom);
+
+      const progressChanged = Math.abs(progress - lastProgress) > 0.001;
+      if (!progressChanged) return;
+      lastProgress = progress;
+
       const eased = progress;
 
       if (heroSticky) {
         const scale = 1 - eased * 0.25;
-        heroSticky.style.transform = `scale(${scale})`;
+
+        heroSticky.style.transform = `scale(${scale}) translateZ(0)`;
         heroSticky.style.transformOrigin = "center bottom";
+        lastScale = scale;
 
         if (isMobile()) {
           const easedRadius = easeOutQuad(eased);
