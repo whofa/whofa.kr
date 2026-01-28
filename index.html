@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -15,6 +15,10 @@
       type="image/png"
       sizes="512x512"
       href="assets/icons/favicon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lenis@1.3.17/dist/lenis.css"
     />
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -98,254 +102,441 @@
       </div>
     </section>
 
-    <section class="app-section" id="features">
-      <div class="feature-scroll-container">
-        <div class="feature-sticky-wrapper">
-          <div class="feature-text-content">
-            <h1 class="section-title">
-              짧지만<svg
-                class="inline-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
-              강렬한<svg
-                class="inline-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg
-              ><br />
-              <span class="underline-animated">블라인드 숏뮤직</span
-              ><svg
-                class="inline-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
-                <path
-                  d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
-                /></svg
-              >으로<br />
-              당신의 음악<svg
-                class="inline-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M9 18V5l12-2v13" />
-                <circle cx="6" cy="18" r="3" />
-                <circle cx="18" cy="16" r="3" /></svg
-              >이 가진<br />
-              힘을 보여주세요<svg
-                class="inline-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                />
-              </svg>
-            </h1>
+    <div class="intro-group">
+      <section class="app-section" id="features">
+        <div class="feature-scroll-container">
+          <div class="feature-sticky-wrapper">
+            <div class="feature-text-content">
+              <h1 class="section-title">
+                짧지만<svg
+                  class="inline-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                강렬한<svg
+                  class="inline-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polygon
+                    points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                  /></svg
+                ><br />
+                <span class="underline-animated">블라인드 숏뮤직</span
+                ><svg
+                  class="inline-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                  <path
+                    d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"
+                  /></svg
+                >으로<br />
+                당신의 음악<svg
+                  class="inline-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M9 18V5l12-2v13" />
+                  <circle cx="6" cy="18" r="3" />
+                  <circle cx="18" cy="16" r="3" /></svg
+                >이 가진<br />
+                힘을 보여주세요<svg
+                  class="inline-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+              </h1>
+            </div>
+          </div>
+          <div class="phone-mockup-container">
+            <div class="phone-mockup">
+              <img
+                src="assets/images/phonesilhouette.webp"
+                alt="Phone Shadow"
+                class="phone-silhouette"
+                draggable="false"
+              />
+              <img
+                src="assets/images/phone.webp"
+                alt="Phone Frame"
+                class="phone-frame"
+                draggable="false"
+              />
+              <img
+                src="assets/videos/preplay_video.webp"
+                alt="App Screenshot"
+                class="phone-screenshot"
+                draggable="false"
+              />
+            </div>
           </div>
         </div>
-        <div class="phone-mockup-container">
-          <div class="phone-mockup">
-            <img
-              src="assets/images/phonesilhouette.webp"
-              alt="Phone Shadow"
-              class="phone-silhouette"
-              draggable="false"
-            />
-            <img
-              src="assets/images/phone.webp"
-              alt="Phone Frame"
-              class="phone-frame"
-              draggable="false"
-            />
-            <img
-              src="assets/videos/preplay_video.webp"
-              alt="App Screenshot"
-              class="phone-screenshot"
-              draggable="false"
-            />
-          </div>
-        </div>
-      </div>
 
-      <div class="feature-scroll-container">
-        <div class="feature-sticky-wrapper">
-          <div class="feature-text-content">
-            <h1 class="section-title">
-              함께 만드는
-              <span class="underline-animated">사운드 커뮤니티</span>.
-            </h1>
+        <section class="hero-section hero-section-secondary">
+          <div class="hero-sticky">
+            <div class="video-container">
+              <img
+                src="assets/videos/hero_video.webp"
+                alt="Hero Video"
+                draggable="false"
+              />
+              <div class="video-overlay"></div>
+            </div>
+
+            <div class="hero-text-flow">
+              <div class="hero-text" data-index="0">
+                <p class="hero-quote">음악으로 잇다.</p>
+              </div>
+              <div class="hero-text" data-index="1">
+                <p class="hero-quote">
+                  <span class="highlight">기승전 음악</span>으로 연결되는<br />자유로운
+                  커뮤니케이션.
+                </p>
+              </div>
+            </div>
+
+            <div class="scroll-indicator">
+              <div class="scroll-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="feature-scroll-container">
+          <div class="feature-sticky-wrapper">
+            <div class="feature-text-content">
+              <h1 class="section-title">
+                함께 만드는
+                <span class="underline-animated">사운드 커뮤니티</span>.
+              </h1>
+              <p class="section-subtitle">
+                다양한 음악 창작자들이 자신의 작업물을 소개하고,<br />
+                더 풍성한 사운드로 발전시키기 위해 협업할 수 있는 커뮤니티예요.
+              </p>
+            </div>
+          </div>
+          <div class="phone-mockup-container">
+            <div class="phone-mockup">
+              <img
+                src="assets/images/phonesilhouette.webp"
+                alt="Phone Shadow"
+                class="phone-silhouette"
+                draggable="false"
+              />
+              <img
+                src="assets/images/phone.webp"
+                alt="Phone Frame"
+                class="phone-frame"
+                draggable="false"
+              />
+              <img
+                src="assets/videos/community_video.webp"
+                alt="App Screenshot"
+                class="phone-screenshot"
+                draggable="false"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-scroll-container">
+          <div class="feature-sticky-wrapper">
+            <div class="feature-text-content">
+              <h1 class="section-title">
+                <span class="underline-animated">프로필 하나로</span>
+                프로페셔널하게.
+              </h1>
+              <p class="section-subtitle">
+                한 번의 링크로 내 모든 음악 활동을 한번에 알릴 수 있어요.
+              </p>
+            </div>
+          </div>
+          <div class="phone-mockup-container">
+            <div class="phone-mockup">
+              <img
+                src="assets/images/phonesilhouette.webp"
+                alt="Phone Shadow"
+                class="phone-silhouette"
+                draggable="false"
+              />
+              <img
+                src="assets/images/phone.webp"
+                alt="Phone Frame"
+                class="phone-frame"
+                draggable="false"
+              />
+              <img
+                src="assets/videos/profile_video.webp"
+                alt="App Screenshot"
+                class="phone-screenshot"
+                draggable="false"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bento-section" id="app-summary">
+        <div class="container">
+          <div class="bento-grid">
+            <article class="bento-card bento-card--wide">
+              <div class="bento-content">
+                <span class="bento-kicker">블라인드 숏뮤직</span>
+                <h3 class="bento-title">음악을 발견하는 새로운 방식.</h3>
+                <p class="bento-summary">
+                  블라인드 숏뮤직으로 오직 사운드에만 집중해 음악의 힘과 매력을
+                  경험할 수 있어요.
+                </p>
+              </div>
+              <div class="bento-overlay" id="bento-detail-1" aria-hidden="true">
+                <div class="bento-overlay-content">
+                  <h3 class="bento-overlay-title">블라인드 숏뮤직 플레이</h3>
+                  <p class="bento-overlay-text">
+                    정보의 선입견 없이 진짜 음악을 발견하고, 짧지만 강렬한
+                    하이라이트로 음악의 힘을 느껴보세요. 댓글과 이모지 응원으로
+                    블라인드 정보를 확인할 수 있어요.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bento-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="bento-detail-1"
+              >
+                <span class="bento-toggle-icon">+</span>
+                <span class="sr-only">자세히 보기</span>
+              </button>
+            </article>
+
+            <article class="bento-card">
+              <div class="bento-content">
+                <span class="bento-kicker">뮤지션 프로필</span>
+                <h3 class="bento-title">음원 중심의 뮤지션 프로필</h3>
+                <p class="bento-summary">
+                  하이라이트 미리듣기부터 싱글, 앨범, 참여곡까지 카테고리별로
+                  손쉽게 정리할 수 있어요.
+                </p>
+              </div>
+              <div class="bento-overlay" id="bento-detail-2" aria-hidden="true">
+                <div class="bento-overlay-content">
+                  <h3 class="bento-overlay-title">레이아웃 커스터마이즈</h3>
+                  <p class="bento-overlay-text">
+                    프로필 레이아웃을 내 음악에 맞게 꾸미고, 명함 대신 팬들에게
+                    공유해보세요.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bento-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="bento-detail-2"
+              >
+                <span class="bento-toggle-icon">+</span>
+                <span class="sr-only">자세히 보기</span>
+              </button>
+            </article>
+
+            <article class="bento-card">
+              <div class="bento-content">
+                <span class="bento-kicker">AI 업로드</span>
+                <h3 class="bento-title">AI를 이용한 음원 업로드</h3>
+                <p class="bento-summary">
+                  가사를 AI로 쉽게 입력하고 언제 어디서든 음악 파일만 있으면
+                  간단하게 업로드할 수 있어요.
+                </p>
+              </div>
+              <div class="bento-overlay" id="bento-detail-3" aria-hidden="true">
+                <div class="bento-overlay-content">
+                  <h3 class="bento-overlay-title">홍보 준비까지 한번에</h3>
+                  <p class="bento-overlay-text">
+                    AI가 가사 입력을 도와 홍보 준비가 빠르게 완료됩니다.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bento-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="bento-detail-3"
+              >
+                <span class="bento-toggle-icon">+</span>
+                <span class="sr-only">자세히 보기</span>
+              </button>
+            </article>
+
+            <article class="bento-card">
+              <div class="bento-content">
+                <span class="bento-kicker">포인트</span>
+                <h3 class="bento-title">음악이 주는 선물, 포인트</h3>
+                <p class="bento-summary">
+                  아티스트의 음악을 듣기만 해도 빠르게 포인트가 적립돼요.
+                </p>
+              </div>
+              <div class="bento-overlay" id="bento-detail-4" aria-hidden="true">
+                <div class="bento-overlay-content">
+                  <h3 class="bento-overlay-title">듣기만 해도 적립</h3>
+                  <p class="bento-overlay-text">
+                    적립한 포인트를 내가 좋아하는 디지털 상품권으로 교환해
+                    사용할 수 있어요.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bento-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="bento-detail-4"
+              >
+                <span class="bento-toggle-icon">+</span>
+                <span class="sr-only">자세히 보기</span>
+              </button>
+            </article>
+
+            <article class="bento-card">
+              <div class="bento-content">
+                <span class="bento-kicker">커뮤니티</span>
+                <h3 class="bento-title">음악으로 이어지는 커뮤니티</h3>
+                <p class="bento-summary">
+                  내가 만든 음원이나 좋아하는 음악을 소개하고 자랑할 수 있어요.
+                </p>
+              </div>
+              <div class="bento-overlay" id="bento-detail-5" aria-hidden="true">
+                <div class="bento-overlay-content">
+                  <h3 class="bento-overlay-title">자유로운 음악 이야기</h3>
+                  <p class="bento-overlay-text">
+                    아티스트와 리스너가 이미지, 동영상, 음원으로 음악에 대해
+                    자유롭게 이야기할 수 있어요.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="bento-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="bento-detail-5"
+              >
+                <span class="bento-toggle-icon">+</span>
+                <span class="sr-only">자세히 보기</span>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section" id="faqs">
+        <div class="container">
+          <div class="section-header">
+            <h1 class="section-title">자주 묻는 질문</h1>
             <p class="section-subtitle">
-              다양한 음악 창작자들이 자신의 작업물을 소개하고,<br />
-              더 풍성한 사운드로 발전시키기 위해 협업할 수 있는 커뮤니티예요.
+              WHOFA에 대해 궁금한 점을 확인해보세요.
             </p>
           </div>
-        </div>
-        <div class="phone-mockup-container">
-          <div class="phone-mockup">
-            <img
-              src="assets/images/phonesilhouette.webp"
-              alt="Phone Shadow"
-              class="phone-silhouette"
-              draggable="false"
-            />
-            <img
-              src="assets/images/phone.webp"
-              alt="Phone Frame"
-              class="phone-frame"
-              draggable="false"
-            />
-            <img
-              src="assets/videos/community_video.webp"
-              alt="App Screenshot"
-              class="phone-screenshot"
-              draggable="false"
-            />
-          </div>
-        </div>
-      </div>
 
-      <div class="feature-scroll-container">
-        <div class="feature-sticky-wrapper">
-          <div class="feature-text-content">
-            <h1 class="section-title">
-              <span class="underline-animated">프로필 하나로</span>
-              프로페셔널하게.
-            </h1>
-            <p class="section-subtitle">
-              한 번의 링크로 내 모든 음악 활동을 한번에 알릴 수 있어요.
-            </p>
-          </div>
-        </div>
-        <div class="phone-mockup-container">
-          <div class="phone-mockup">
-            <img
-              src="assets/images/phonesilhouette.webp"
-              alt="Phone Shadow"
-              class="phone-silhouette"
-              draggable="false"
-            />
-            <img
-              src="assets/images/phone.webp"
-              alt="Phone Frame"
-              class="phone-frame"
-              draggable="false"
-            />
-            <img
-              src="assets/videos/profile_video.webp"
-              alt="App Screenshot"
-              class="phone-screenshot"
-              draggable="false"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>WHOFA는 어떤 서비스인가요?</span>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  WHOFA는 블라인드 숏 뮤직 기능을 통해 리스너가 선입견 없이 음악
+                  자체에 집중할 수 있도록 돕는 새로운 음악 플랫폼입니다.
+                  뮤지션에게는 자신의 음악을 효과적으로 홍보하고 팬들과 소통할
+                  수 있는 공간을 제공합니다.
+                </p>
+              </div>
+            </div>
 
-    <section class="faq-section" id="faqs">
-      <div class="container">
-        <div class="section-header">
-          <h1 class="section-title">자주 묻는 질문</h1>
-          <p class="section-subtitle">WHOFA에 대해 궁금한 점을 확인해보세요.</p>
-        </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>앱은 무료인가요?</span>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  네, WHOFA 앱은 무료로 다운로드하여 사용할 수 있습니다. 일부
+                  프리미엄 기능은 추후 유료로 제공될 수 있습니다.
+                </p>
+              </div>
+            </div>
 
-        <div class="faq-list">
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>WHOFA는 어떤 서비스인가요?</span>
-              <span class="faq-icon">+</span>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>어떻게 음악을 업로드하나요?</span>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  앱에서 뮤지션 프로필을 생성한 후, AI 기반 업로드 기능을 통해
+                  음악 파일과 가사를 쉽게 등록할 수 있습니다. 언제 어디서든
+                  간편하게 업로드가 가능합니다.
+                </p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p>
-                WHOFA는 블라인드 숏 뮤직 기능을 통해 리스너가 선입견 없이 음악
-                자체에 집중할 수 있도록 돕는 새로운 음악 플랫폼입니다.
-                뮤지션에게는 자신의 음악을 효과적으로 홍보하고 팬들과 소통할 수
-                있는 공간을 제공합니다.
-              </p>
-            </div>
-          </div>
 
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>앱은 무료인가요?</span>
-              <span class="faq-icon">+</span>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>포인트는 어떻게 적립하나요?</span>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  WHOFA에서 음악을 감상하면 자동으로 포인트가 적립됩니다. 적립된
+                  포인트는 다양한 디지털 상품권으로 교환하여 사용할 수 있습니다.
+                </p>
+              </div>
             </div>
-            <div class="faq-answer">
-              <p>
-                네, WHOFA 앱은 무료로 다운로드하여 사용할 수 있습니다. 일부
-                프리미엄 기능은 추후 유료로 제공될 수 있습니다.
-              </p>
-            </div>
-          </div>
 
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>어떻게 음악을 업로드하나요?</span>
-              <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              <p>
-                앱에서 뮤지션 프로필을 생성한 후, AI 기반 업로드 기능을 통해
-                음악 파일과 가사를 쉽게 등록할 수 있습니다. 언제 어디서든
-                간편하게 업로드가 가능합니다.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>포인트는 어떻게 적립하나요?</span>
-              <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              <p>
-                WHOFA에서 음악을 감상하면 자동으로 포인트가 적립됩니다. 적립된
-                포인트는 다양한 디지털 상품권으로 교환하여 사용할 수 있습니다.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <div class="faq-question">
-              <span>iOS와 Android 모두 지원하나요?</span>
-              <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              <p>
-                네, WHOFA는 iOS와 Android 모두 지원합니다. App Store와 Google
-                Play에서 다운로드할 수 있습니다.
-              </p>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>iOS와 Android 모두 지원하나요?</span>
+                <span class="faq-icon">+</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  네, WHOFA는 iOS와 Android 모두 지원합니다. App Store와 Google
+                  Play에서 다운로드할 수 있습니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section class="download-section" id="download">
       <div class="container">
@@ -398,6 +589,7 @@
       </div>
     </footer>
 
+    <script src="https://unpkg.com/lenis@1.3.17/dist/lenis.min.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
