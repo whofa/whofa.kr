@@ -586,6 +586,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const navToggle = document.querySelector(".nav-toggle");
   const navMenus = document.querySelectorAll(".nav-menu");
+  const navLogo = document.querySelector(".nav-logo");
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const scrollToTarget = (target) => {
+    if (!target) return;
+    const navOffset = navbar?.offsetHeight ?? 0;
+    const targetTop =
+      target.getBoundingClientRect().top + window.pageYOffset - navOffset;
+
+    if (lenis) {
+      lenis.scrollTo(targetTop, {
+        duration: prefersReducedMotion ? 0 : 1.2,
+        easing: easeOutCubic,
+      });
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      window.scrollTo(0, targetTop);
+    } else {
+      window.scrollTo({ top: targetTop, behavior: "smooth" });
+    }
+  };
+
+  const scrollToTop = () => {
+    if (lenis) {
+      lenis.scrollTo(0, {
+        duration: prefersReducedMotion ? 0 : 1.2,
+        easing: easeOutCubic,
+      });
+      return;
+    }
+
+    if (prefersReducedMotion) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   navToggle.addEventListener("click", () => {
     navToggle.classList.add("animating");
@@ -598,13 +637,34 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelectorAll(".nav-link").forEach((link) => {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#") && href.length > 1) {
+        const target = document.querySelector(href);
+        if (target) {
+          event.preventDefault();
+          scrollToTarget(target);
+        }
+      }
+
       navMenus.forEach((menu) => menu.classList.remove("active"));
       setTimeout(() => {
         navToggle.classList.remove("active");
       }, 300);
     });
   });
+
+  if (navLogo) {
+    navLogo.addEventListener("click", (event) => {
+      event.preventDefault();
+      scrollToTop();
+
+      navMenus.forEach((menu) => menu.classList.remove("active"));
+      setTimeout(() => {
+        navToggle.classList.remove("active");
+      }, 300);
+    });
+  }
 
   const faqItems = document.querySelectorAll(".faq-item");
   faqItems.forEach((item) => {
