@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lastScale: -1,
       lastProgress: -1,
       lastMorph: -1,
+      lastActiveIndex: -1,
     };
   });
 
@@ -138,12 +139,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const textFlowScrollHeight =
         hero.textFlow.scrollHeight - hero.textFlow.clientHeight;
-      hero.textFlow.scrollTop = textProgress * textFlowScrollHeight;
-
       const activeDot = Math.min(
         Math.round(textProgress * (hero.totalSlides - 1)),
         hero.totalSlides - 1,
       );
+
+      if (isMobile()) {
+        if (hero.lastActiveIndex !== activeDot) {
+          hero.heroTexts.forEach((text, i) =>
+            text.classList.toggle("active", i === activeDot),
+          );
+          hero.lastActiveIndex = activeDot;
+        }
+        if (hero.textFlow.scrollTop !== 0) {
+          hero.textFlow.scrollTop = 0;
+        }
+      } else {
+        hero.textFlow.scrollTop = textProgress * textFlowScrollHeight;
+        if (hero.lastActiveIndex !== -1) {
+          hero.heroTexts.forEach((text) => text.classList.remove("active"));
+          hero.lastActiveIndex = -1;
+        }
+      }
+
       hero.dots.forEach((dot, i) =>
         dot.classList.toggle("active", i === activeDot),
       );
@@ -276,6 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
           hero.lastScale = -1;
           hero.lastProgress = -1;
           hero.lastMorph = -1;
+          hero.lastActiveIndex = -1;
           resetHeroInlineStyles(hero, cachedIsMobile);
         });
 

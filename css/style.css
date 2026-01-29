@@ -369,6 +369,25 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .hero-text-flow {
+    overflow: hidden;
+  }
+
+  .hero-text {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    will-change: opacity;
+  }
+
+  .hero-text.active {
+    opacity: 1;
+  }
+}
+
 .hero-quote {
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
